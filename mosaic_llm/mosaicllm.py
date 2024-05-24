@@ -31,7 +31,7 @@ class MosaicLLM:
 
     @staticmethod
     def query_mosaic(query):
-        url = f"https://qnode.eu/ows/mosaic/service/search?q={query}"
+        url = f"https://qnode.eu/ows/mosaic/service/search?q={query}?&index=demo-simplewiki&lang=eng&limit=5"
         query_result = ""
         try:
             response = requests.get(url)
@@ -44,6 +44,19 @@ class MosaicLLM:
             print(f"Other error occurred: {err}")
 
         return query_result
+
+    @staticmethod
+    def extract_textsnippet_from_mosaic_response(response):
+        text_snippets = []
+
+        for result in response["results"]:
+            for item in result["demo-simplewiki"]:
+                try:
+                    text_snippets.append(item["textSnippet"])
+                except:
+                    print("Missing text, skipping..")
+
+        return text_snippets
 
     def get_prompt_template(self, path):
         query_optimization_prompt = MosaicLLM.get_prompt_txt(path)
@@ -58,14 +71,14 @@ class MosaicLLM:
         self.model = ChatMistralAI(model=self.model_name, temperature=self.temperature)
 
         self.query_optimizer_chain = (
-            self.get_prompt_template(f"{self.root}{MosaicLLM.QUERY_OPTIMIZER_PATH}")
-            | self.model
-            | StrOutputParser()
+                self.get_prompt_template(f"{self.root}{MosaicLLM.QUERY_OPTIMIZER_PATH}")
+                | self.model
+                | StrOutputParser()
         )
         self.result_summarizer_chain = (
-            self.get_prompt_template(f"{self.root}{MosaicLLM.RESULT_SUMMARIZATION_PATH}")
-            | self.model
-            | StrOutputParser()
+                self.get_prompt_template(f"{self.root}{MosaicLLM.RESULT_SUMMARIZATION_PATH}")
+                | self.model
+                | StrOutputParser()
         )
 
     @retry(stop=stop_after_attempt(10), wait=wait_fixed(1))
@@ -82,15 +95,14 @@ class MosaicLLM:
 
         # fetch
         mosaic_search_result = {}
-        mosaic_search_result["query"] = MosaicLLM.query_mosaic(
-            query
-        )
-        mosaic_search_result["clarified_query"] = MosaicLLM.query_mosaic(
-            optimized_query_json["clarified_query"]
-        )
+        response = MosaicLLM.query_mosaic(query)
+        mosaic_search_result["query"] = MosaicLLM.extract_textsnippet_from_mosaic_response(response)
+
+        response = MosaicLLM.query_mosaic(optimized_query_json["clarified_query"])
+        mosaic_search_result["clarified_query"] = MosaicLLM.extract_textsnippet_from_mosaic_response(response)
+
         for i, suggested_queries in enumerate(optimized_query_json["subqueries"]):
-            mosaic_search_result[f"subquery_{i}"] = MosaicLLM.query_mosaic(
-                suggested_queries
-            )
+            response = MosaicLLM.query_mosaic(suggested_queries)
+            mosaic_search_result[f"subquery_{i}"] = MosaicLLM.extract_textsnippet_from_mosaic_response(response)
 
         # summarize
