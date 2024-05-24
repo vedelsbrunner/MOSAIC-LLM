@@ -58,12 +58,12 @@ class MosaicLLM:
         self.model = ChatMistralAI(model=self.model_name, temperature=self.temperature)
 
         self.query_optimizer_chain = (
-            self.get_prompt_template(MosaicLLM.QUERY_OPTIMIZER_PATH)
+            self.get_prompt_template(f"{self.root}{MosaicLLM.QUERY_OPTIMIZER_PATH}")
             | self.model
             | StrOutputParser()
         )
         self.result_summarizer_chain = (
-            self.get_prompt_template(MosaicLLM.RESULT_SUMMARIZATION_PATH)
+            self.get_prompt_template(f"{self.root}{MosaicLLM.RESULT_SUMMARIZATION_PATH}")
             | self.model
             | StrOutputParser()
         )
