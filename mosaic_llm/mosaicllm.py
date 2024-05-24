@@ -46,7 +46,7 @@ class MosaicLLM:
         return query_result
 
     def get_prompt_template(self, path):
-        query_optimization_prompt = MosaicLLM.get_prompt_txt()
+        query_optimization_prompt = MosaicLLM.get_prompt_txt(path)
 
         optimization_prompt_template = ChatPromptTemplate.from_messages(
             [("human", query_optimization_prompt)],
@@ -83,14 +83,14 @@ class MosaicLLM:
         # fetch
         mosaic_search_result = {}
         mosaic_search_result["query"] = MosaicLLM.query_mosaic(
-            query=optimized_query_json["query"]
+            query
         )
         mosaic_search_result["clarified_query"] = MosaicLLM.query_mosaic(
-            query=optimized_query_json["clarified_query"]
+            optimized_query_json["clarified_query"]
         )
         for i, suggested_queries in enumerate(optimized_query_json["subqueries"]):
             mosaic_search_result[f"subquery_{i}"] = MosaicLLM.query_mosaic(
-                query=suggested_queries
+                suggested_queries
             )
 
         # summarize
