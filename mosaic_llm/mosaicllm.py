@@ -70,39 +70,71 @@ class MosaicLLM:
         load_dotenv()
         self.model = ChatMistralAI(model=self.model_name, temperature=self.temperature)
 
+        self.query_optimizer_prompt = self.get_prompt_template(
+            f"{self.root}{MosaicLLM.QUERY_OPTIMIZER_PATH}"
+        )
         self.query_optimizer_chain = (
-                self.get_prompt_template(f"{self.root}{MosaicLLM.QUERY_OPTIMIZER_PATH}")
-                | self.model
-                | StrOutputParser()
+            self.query_optimizer_prompt | self.model | StrOutputParser()
+        )
+
+        self.result_summarizer_prompt = self.get_prompt_template(
+            f"{self.root}{MosaicLLM.RESULT_SUMMARIZATION_PATH}"
         )
         self.result_summarizer_chain = (
-                self.get_prompt_template(f"{self.root}{MosaicLLM.RESULT_SUMMARIZATION_PATH}")
-                | self.model
-                | StrOutputParser()
+            self.result_summarizer_prompt | self.model | StrOutputParser()
         )
 
     @retry(stop=stop_after_attempt(10), wait=wait_fixed(1))
     def optimize_query(self, query: str) -> dict:
-        raw_asnwer = self.query_optimizer_chain.invoke({"q": query})
+        params: dict = {"q": query}
+        raw_asnwer = self.query_optimizer_chain.invoke(params)
 
         llm_answer = ast.literal_eval(raw_asnwer)
         dict_ = json.loads(llm_answer) if isinstance(llm_answer, str) else llm_answer
-        return dict_
 
-    def run(self, query: str):
-        # optimize
-        optimized_query_json = self.optimize_query(query)
+        prompt_str: str = self.query_optimizer_prompt.invoke(params).to_string()
+        return prompt_str, dict_
 
-        # fetch
-        mosaic_search_result = {}
+
+    @retry(stop=stop_after_attempt(10), wait=wait_fixed(1))
+    def summarize_results(self, query: str, result_snippet: list) -> str:
+        result_snippet_str: str = "- " + "-".join(result_snippet)
+        params = {"q": query, "snippet_lst": result_snippet_str}
+        answer = self.result_summarizer_chain.invoke(params)
+        prompt_str: str = self.result_summarizer_prompt.invoke(params).to_string()
+        return prompt_str, answer
+
+    def search_and_summarize(self, query: str):
         response = MosaicLLM.query_mosaic(query)
-        mosaic_search_result["query"] = MosaicLLM.extract_textsnippet_from_mosaic_response(response)
+        snippet_lst = MosaicLLM.extract_textsnippet_from_mosaic_response(response)
+        prompt_str, summary = self.summarize_results(query, snippet_lst)
+        return prompt_str, summary
 
-        response = MosaicLLM.query_mosaic(optimized_query_json["clarified_query"])
-        mosaic_search_result["clarified_query"] = MosaicLLM.extract_textsnippet_from_mosaic_response(response)
+    def run(self, query: str) -> dict:
+        result = {}
+        # optimize
+        result["query_optimizer_prompt"], optimized_query_json = self.optimize_query(
+            query
+        )
+        result = optimized_query_json
 
-        for i, suggested_queries in enumerate(optimized_query_json["subqueries"]):
-            response = MosaicLLM.query_mosaic(suggested_queries)
-            mosaic_search_result[f"subquery_{i}"] = MosaicLLM.extract_textsnippet_from_mosaic_response(response)
+        # QUERY MOSAIC and summarize
+        result["prompt_query_summary"], result["summary_query"] = (
+            self.search_and_summarize(query)
+        )
+        result["prompt_clarified_query_summary"], result["summary_clarified_query"] = (
+            self.search_and_summarize(optimized_query_json["clarified_query"])
+        )
 
-        # summarize
+        all_snippets = []
+        queries = []
+        for suggested_query in optimized_query_json["subqueries"]:
+            queries.append(suggested_query)
+            response = MosaicLLM.query_mosaic(suggested_query)
+            all_snippets.extend(
+                MosaicLLM.extract_textsnippet_from_mosaic_response(response)
+            )
+        result["prompt_subqueries"], result["summary_subqueries"] = (
+            self.summarize_results(", ".join(queries), all_snippets)
+        )
+        return result
