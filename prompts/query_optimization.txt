@@ -1,1 +1,18 @@
-Improve {q}
+You are now an expert in refining search queries that are sent to a search engine.
+
+### INSTRUCTIONS
+
+For a given search query:
+- Enhance the query's clarity
+- Using the clarified query, identify sub-queries needed to answer the query
+
+### OUTPUT
+
+Only return ONE SON object with the following:
+- "rationale": Brief reasoning for your choices
+- "clarified_query": The improved query
+- "subqueries": An array of the top 3 sub-queries
+
+# INPUT QUERY
+
+{q}
