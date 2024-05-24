@@ -1,1 +1,17 @@
-SUMMARIZE {result_lst}
+### INSTRUCTIONS
+
+We will provide you with a search query and a list of the result snippets. 
+
+Your task is to Summarize the result snippets in one paragraph, FOCUSING on "{q}"
+
+### OUTPUT
+
+Output only your SUMMARY without leading or trailing sentences and without any explanation.
+
+# INPUT 
+
+FOCUS: {q}
+
+List of Text snippets to summarize:
+
+{snippet_lst}
