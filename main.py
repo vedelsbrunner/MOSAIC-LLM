@@ -4,7 +4,6 @@ from langchain_core.output_parsers import StrOutputParser
 from dotenv import load_dotenv
 import requests
 import json
-
 load_dotenv()
 
 
@@ -59,9 +58,15 @@ def main():
     query_optimizer = create_query_optimization(model, output_parser)
     summary_optimizer = create_query_summarization(model, output_parser)
 
-    optimized_query = query_optimizer.invoke({"q": "climate change"})
-    mosaic_result = query_mosaic("What is the purpose of life?")
-    print(mosaic_result)
+    original_query = "What is the purpose of life?"
+    print("Original query: " + original_query)
+
+    optimized_query = json.loads(query_optimizer.invoke({"q": original_query}))
+
+    print("Optimized query: ", optimized_query['clarified_query'])
+    mosaic_result = query_mosaic(optimized_query['clarified_query'])
+    print(json.dumps(mosaic_result, indent=4))
+
 
 
 if __name__ == '__main__':
