@@ -20,7 +20,7 @@ class MosaicLLM:
 
     QUERY_OPTIMIZER_PATH: ClassVar = "prompts/query_optimization.txt"
     RESULT_SUMMARIZATION_PATH: ClassVar = "prompts/result_summarization.txt"
-
+ 
     # HELPERS
     @staticmethod
     def get_prompt_txt(prompt_path) -> str:
