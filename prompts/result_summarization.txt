@@ -6,7 +6,7 @@ Your task is to Summarize the result snippets in one paragraph, FOCUSING on "{q}
 
 ### OUTPUT
 
-Output only your SUMMARY without leading or trailing sentences and without any explanation.
+Output ONLY your SUMMARY without leading or trailing sentences and without any explanation.
 
 # INPUT 
 

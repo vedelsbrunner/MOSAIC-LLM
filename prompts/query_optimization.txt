@@ -13,8 +13,6 @@ Only return ONE JSON object with the following:
 - "clarified_query": The improved query
 - "subqueries": An array of the top 3 sub-queries
 
-Where each clarified_query field and each query field in subqueries is a list of at most 15 words.
-
 # INPUT QUERY
 
 {q}

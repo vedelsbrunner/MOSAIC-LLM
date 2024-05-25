@@ -34,10 +34,17 @@ class MosaicLLM:
         return prompt_txt
 
     def query_mosaic(self, query):
-        url = f"https://qnode.eu/ows/mosaic/service/search?q={query}?&index={self.mosaic_index}&lang={self.mosaic_lang}&limit={self.mosaic_top_n}"
+        params = {
+            'q': query,
+            'index': self.mosaic_index,
+            'lang': self.mosaic_lang,
+            'limit': self.mosaic_top_n
+        }
+        url = f"https://qnode.eu/ows/mosaic/service/search"
+        
         query_result = ""
         try:
-            response = requests.get(url)
+            response = requests.get(url, params=params)
             response.raise_for_status()
             query_result = response.json()
             # print(json.dumps(json_response, indent=4))
