@@ -1,0 +1,43 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "mosaic_llm"
+version = "0.1"
+description='The main goal of this code is to use Zero-shot LLM to improve/Expand user query, fetch search results using MOSAIC RESTAPI and then summarize the snippets using also Zero-shot prompting.'
+readme = "README.md"
+authors = [{ name = "Roxanne El Baff", email = "roxanne.elbaff@gmail.com" },
+           { name = "Valentin", email = "v.edelsbrunner@protonmail.com" }]
+#license = { file = "LICENSE" }
+#keywords=['iesta', 'llm', 'style-transfer']
+dependencies = [
+    "pandas",
+    "tqdm",
+    "langchain_community",
+    "langchain",
+    "langchain-mistralai",
+    "python-dotenv",
+    "requests",
+]
+
+
+[tool.poetry]
+# ...
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    'Development Status :: 3 - Alpha',
+    'Intended Audience :: Science/Research',
+
+]
+readme = "README.md"
+
+[project.urls]
+repository = "https://github.com/roxanneelbaff/"
+
+
+[tool.black]
+line-length = 79
+# to republish: flit build and the flit publish
