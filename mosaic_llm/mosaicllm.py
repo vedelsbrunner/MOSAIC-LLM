@@ -18,6 +18,10 @@ class MosaicLLM:
     temperature: int = 0.7
     root: str = "../"
 
+    mosaic_top_n: int = 5
+    mosaic_index: str = "demo-simplewiki"
+    mosaic_lang: str = "en"
+
     QUERY_OPTIMIZER_PATH: ClassVar = "prompts/query_optimization.txt"
     RESULT_SUMMARIZATION_PATH: ClassVar = "prompts/result_summarization.txt"
  
@@ -29,9 +33,8 @@ class MosaicLLM:
             prompt_txt = f.read()  # has
         return prompt_txt
 
-    @staticmethod
-    def query_mosaic(query):
-        url = f"https://qnode.eu/ows/mosaic/service/search?q={query}?&index=demo-simplewiki&lang=eng&limit=5"
+    def query_mosaic(self, query):
+        url = f"https://qnode.eu/ows/mosaic/service/search?q={query}?&index={self.mosaic_index}&lang={self.mosaic_lang}&limit={self.mosaic_top_n}"
         query_result = ""
         try:
             response = requests.get(url)
@@ -105,7 +108,7 @@ class MosaicLLM:
         return prompt_str, answer
 
     def search_and_summarize(self, query: str):
-        response = MosaicLLM.query_mosaic(query)
+        response = self.query_mosaic(query)
         snippet_lst = MosaicLLM.extract_textsnippet_from_mosaic_response(response)
         prompt_str, summary = self.summarize_results(query, snippet_lst)
         return prompt_str, summary
@@ -130,7 +133,7 @@ class MosaicLLM:
         queries = []
         for suggested_query in optimized_query_json["subqueries"]:
             queries.append(suggested_query)
-            response = MosaicLLM.query_mosaic(suggested_query)
+            response = self.query_mosaic(suggested_query)
             all_snippets.extend(
                 MosaicLLM.extract_textsnippet_from_mosaic_response(response)
             )
