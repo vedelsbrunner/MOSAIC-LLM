@@ -1,7 +1,7 @@
 # MOSAIC-LLM
 
 Main contributers:
-Roxanne El Baff (roxanne.elbaff@dlr.de) and Valentin Edelsbrunner (v.edelsbrunner@protonmail.com)
+Roxanne El Baff (roxanne.elbaff@dlr.de) and Valentin Edelsbrunner (v.edelsbrunner@protonmail.com).
 
 ## Overview
 <p align="center">
@@ -77,7 +77,7 @@ Check MOSAIC main page for further information.
 - The prompt used is under `prompts/result_summarization.txt.txt` [[link](prompts/result_summarization.txt)].
 - **code**: [`MosaicLLM.summarize_results`](mosaic_llm/mosaicllm.py)
   
-Check the overview section of an example of the three main outputs.
+Check the overview section for an example of the three main outputs.
 
 ## Technical Details
 **Model** ``open-mixtral-8x7b`` accessed via Mixtral API
