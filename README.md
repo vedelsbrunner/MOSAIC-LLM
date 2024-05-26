@@ -5,7 +5,7 @@ Roxanne El Baff (roxanne.elbaff@dlr.de) and Valentin Edelsbrunner (v.edelsbrunne
 
 ## Overview
 <p align="center">
-<img src="concept/mosaic_llm.png" alt="mosaic_llm" width="500"/>
+<img src="concept/mosaic_llm.png" alt="mosaic_llm" width="700"/>
 </p>
 
 The main goal of this demo is to use **Zero-shot LLM** to:
@@ -46,14 +46,12 @@ Below, we explain each component in more detail:
 
 **Example Output** for `q`: `Apple`
 
-```json
+```python
 
 {
-    'rationale': "The original query is too vague. I will clarify it to specify that the user is likely looking for information about Apple Inc., a major technology company. I will also create sub-queries to gather information about Apple's products, services, and company performance.",
-    'clarified_query': 'Apple Inc.',
-    'subqueries': ['Apple Inc. products',
-                   'Apple Inc. services',
-                   'Apple Inc. financial performance']
+ 'rationale': "The original query is too vague. I will clarify it to specify that the user is likely looking for information about Apple Inc., a major technology company. I will also create sub-queries to gather information about Apple's products, services, and company performance.",
+ 'clarified_query': 'Apple Inc.',
+ 'subqueries': ['Apple Inc. products', 'Apple Inc. services', 'Apple Inc. financial performance']
 }
 
 ```
