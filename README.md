@@ -94,13 +94,19 @@ ___
 The main class [**`MosaicLLM`**](mosaic_llm/mosaillm.py) is implemented under the package [`mosaic_llm/mosaillm.py`](mosaic_llm/mosaillm.py). 
 
 ##### Attributes:
+
 - ``model_name``: str - The model name of the LLM to be used for the Optimizer and Summarizer. Default value: ``open-mixtral-8x7b``.
+  
   - Note: for now, we only support Mistral models.
+  
 - ``temperature``: int - the temperature set when calling the LLM. Default value: ``0.7``.
+  
 - ``root``: str - The path root where the `prompts` folder is located. Default value:  `../`.
 
 - ``mosaic_top_n``: int - The top N results that should be returned from MOSAIC. Default value: `5`.
+  
 - ``mosaic_index``: str - Defines the index name to be used when searching MOSAIC. Default value: ``demo-simplewiki``.
+  
 - ``mosaic_lang``: str - Defines the results' language returned from MOSAIC.. Default value: ``en``.
 
 
