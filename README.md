@@ -81,11 +81,12 @@ Check the MOSAIC main page for further information.
 Check the overview section for an example of the three main outputs.
 
 ## Technical Details
-**Model** ``open-mixtral-8x7b`` accessed via Mixtral API
-**Temperature** default to ``0.7``
-**Framework** LangChain
-**Requirements** check [`requirements.txt` here](requirements.txt).
-**Python version**: we tested the code with ``Python>3.9.2``
+
+- **Model** ``open-mixtral-8x7b`` accessed via Mixtral API
+- **Temperature** default to ``0.7``
+- **Framework** LangChain
+- **Requirements** check [`requirements.txt` here](requirements.txt).
+- **Python version**: we tested the code with ``Python>3.9.2``
 
 ___
 
@@ -96,17 +97,11 @@ The main class [**`MosaicLLM`**](mosaic_llm/mosaillm.py) is implemented under th
 ##### Attributes:
 
 - ``model_name``: str - The model name of the LLM to be used for the Optimizer and Summarizer. Default value: ``open-mixtral-8x7b``.
-  
   - Note: for now, we only support Mistral models.
-  
 - ``temperature``: int - the temperature set when calling the LLM. Default value: ``0.7``.
-  
 - ``root``: str - The path root where the `prompts` folder is located. Default value:  `../`.
-
 - ``mosaic_top_n``: int - The top N results that should be returned from MOSAIC. Default value: `5`.
-  
 - ``mosaic_index``: str - Defines the index name to be used when searching MOSAIC. Default value: ``demo-simplewiki``.
-  
 - ``mosaic_lang``: str - Defines the results' language returned from MOSAIC.. Default value: ``en``.
 
 
