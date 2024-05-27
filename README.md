@@ -5,7 +5,7 @@ Roxanne El Baff (roxanne.elbaff@dlr.de) and Valentin Edelsbrunner (v.edelsbrunne
 
 ## Overview
 <p align="center">
-<img src="concept/mosaic_llm.png" alt="mosaic_llm" width="500"/>
+<img src="concept/mosaic_llm.png" alt="mosaic_llm" width="700"/>
 </p>
 
 The main goal of this demo is to use **Zero-shot LLM** to:
@@ -46,14 +46,12 @@ Below, we explain each component in more detail:
 
 **Example Output** for `q`: `Apple`
 
-```json
+```python
 
 {
-    'rationale': "The original query is too vague. I will clarify it to specify that the user is likely looking for information about Apple Inc., a major technology company. I will also create sub-queries to gather information about Apple's products, services, and company performance.",
-    'clarified_query': 'Apple Inc.',
-    'subqueries': ['Apple Inc. products',
-                   'Apple Inc. services',
-                   'Apple Inc. financial performance']
+ 'rationale': "The original query is too vague. I will clarify it to specify that the user is likely looking for information about Apple Inc., a major technology company. I will also create sub-queries to gather information about Apple's products, services, and company performance.",
+ 'clarified_query': 'Apple Inc.',
+ 'subqueries': ['Apple Inc. products', 'Apple Inc. services', 'Apple Inc. financial performance']
 }
 
 ```
@@ -83,11 +81,12 @@ Check the MOSAIC main page for further information.
 Check the overview section for an example of the three main outputs.
 
 ## Technical Details
-**Model** ``open-mixtral-8x7b`` accessed via Mixtral API
-**Temperature** default to ``0.7``
-**Framework** LangChain
-**Requirements** check [`requirements.txt` here](requirements.txt).
-**Python version**: we tested the code with ``Python>3.9.2``
+
+- **Model** ``open-mixtral-8x7b`` accessed via Mixtral API
+- **Temperature** default to ``0.7``
+- **Framework** LangChain
+- **Requirements** check [`requirements.txt` here](requirements.txt).
+- **Python version**: we tested the code with ``Python>3.9.2``
 
 ___
 
@@ -96,11 +95,11 @@ ___
 The main class [**`MosaicLLM`**](mosaic_llm/mosaillm.py) is implemented under the package [`mosaic_llm/mosaillm.py`](mosaic_llm/mosaillm.py). 
 
 ##### Attributes:
+
 - ``model_name``: str - The model name of the LLM to be used for the Optimizer and Summarizer. Default value: ``open-mixtral-8x7b``.
   - Note: for now, we only support Mistral models.
 - ``temperature``: int - the temperature set when calling the LLM. Default value: ``0.7``.
 - ``root``: str - The path root where the `prompts` folder is located. Default value:  `../`.
-
 - ``mosaic_top_n``: int - The top N results that should be returned from MOSAIC. Default value: `5`.
 - ``mosaic_index``: str - Defines the index name to be used when searching MOSAIC. Default value: ``demo-simplewiki``.
 - ``mosaic_lang``: str - Defines the results' language returned from MOSAIC.. Default value: ``en``.
