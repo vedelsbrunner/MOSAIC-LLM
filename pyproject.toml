@@ -4,7 +4,7 @@ build-backend = "flit_core.buildapi"
 
 [project]
 name = "mosaic_llm"
-version = "0.1.1"
+version = "0.1.5"
 description='The main goal of this code is to use Zero-shot LLM to improve/Expand user query, fetch search results using MOSAIC RESTAPI and then summarize the snippets using also Zero-shot prompting.'
 readme = "README.md"
 authors = [{ name = "Roxanne El Baff", email = "roxanne.elbaff@gmail.com" },

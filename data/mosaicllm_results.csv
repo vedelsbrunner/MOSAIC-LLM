@@ -1,0 +1,53 @@
+,rationale,clarified_query,subqueries,prompt_query_summary,summary_query,prompt_clarified_query_summary,summary_clarified_query,prompt_subqueries,summary_subqueries,query
+0,"The initial query is just 'Apple', which is too broad and could refer to many things like the fruit, the tech company, or even a color. I will refine the query to make it clearer and specific.",Apple company,"['Apple company headquarters', 'Apple company products', 'Apple company CEO']","Human: ### INSTRUCTIONS
+
+We will provide you with a search query and a list of the result snippets. 
+
+Your task is to Summarize the result snippets in one paragraph, FOCUSING on ""Apple""
+
+### OUTPUT
+
+Output ONLY your SUMMARY without leading or trailing sentences and without any explanation.
+
+# INPUT 
+
+FOCUS: Apple
+
+List of Text snippets to summarize:
+
+- https://simple.wikipedia.org/wiki/Apple_(disambiguation)-Apple Park is the corporate headquarters of Apple Inc.. It is in Cupertino, California.-Apple T1 is a chip that was made by Apple. It is derivated from Apple S2.-https://simple.wikipedia.org/wiki/Apple_juice-A pond-apple is a type of fruit. It is not related to the apple.
+","Apple is a multinational technology company, known for its headquarters, Apple Park, located in Cupertino, California. The company has also developed its own chips, such as the Apple T1, which is derived from the Apple S2. However, the term ""apple"" can be misleading, as it is also used to describe unrelated entities, such as apple juice and pond-apples, which are types of fruit.","Human: ### INSTRUCTIONS
+
+We will provide you with a search query and a list of the result snippets. 
+
+Your task is to Summarize the result snippets in one paragraph, FOCUSING on ""Apple company""
+
+### OUTPUT
+
+Output ONLY your SUMMARY without leading or trailing sentences and without any explanation.
+
+# INPUT 
+
+FOCUS: Apple company
+
+List of Text snippets to summarize:
+
+- https://simple.wikipedia.org/wiki/Apple_Campus-Apple Corps Ltd. is a multimedia company started 1968 by The Beatles.-The Apple I is a simple, 8-bit Personal computer and was the first offical product of the company, Apple Inc. It was designed by Steve Wozniak in 1976 as a simple computer board.-Apple Music is a music streaming service from the American company Apple Inc. that functions like YouTube Music, Spotify, etc.-Apple Records was a record label founded in 1968, started by The Beatles. It was a division of the Beatles's company Apple Corps.
+","Apple Inc., an American multimedia company, was established in 1976 by Steve Wozniak and sold its first official product, the Apple I, in the same year. The company has diversified its portfolio over the years and currently offers a wide range of products and services. One of its services includes Apple Music, a music streaming platform that competes with the likes of Spotify and YouTube Music. It is important to distinguish Apple Inc. from Apple Corps Ltd., a multimedia company started by The Beatles in 1968, and Apple Records, a record label that was a division of Apple Corps.","Human: ### INSTRUCTIONS
+
+We will provide you with a search query and a list of the result snippets. 
+
+Your task is to Summarize the result snippets in one paragraph, FOCUSING on ""Apple company headquarters, Apple company products, Apple company CEO""
+
+### OUTPUT
+
+Output ONLY your SUMMARY without leading or trailing sentences and without any explanation.
+
+# INPUT 
+
+FOCUS: Apple company headquarters, Apple company products, Apple company CEO
+
+List of Text snippets to summarize:
+
+- https://simple.wikipedia.org/wiki/Apple_Campus-Apple Corps Ltd. is a multimedia company started 1968 by The Beatles.-Apple Music is a music streaming service from the American company Apple Inc. that functions like YouTube Music, Spotify, etc.-Apple Park is the corporate headquarters of Apple Inc.. It is in Cupertino, California.-Apple Records was a record label founded in 1968, started by The Beatles. It was a division of the Beatles's company Apple Corps.-AirPort and AirPort Extreme are local area wireless networking products that are made by the company Apple Inc.-https://simple.wikipedia.org/wiki/Apple_Campus-Apple Corps Ltd. is a multimedia company started 1968 by The Beatles.-https://simple.wikipedia.org/wiki/Douglas_Aircraft_Company-Tropicana Products is a multinational American company. It makes soft drinks.-https://simple.wikipedia.org/wiki/Apple_Campus-Apple Corps Ltd. is a multimedia company started 1968 by The Beatles.-Apple Music is a music streaming service from the American company Apple Inc. that functions like YouTube Music, Spotify, etc.-Apple Records was a record label founded in 1968, started by The Beatles. It was a division of the Beatles's company Apple Corps.-NeXTSTEP was a computer operating system made by a company called NeXT. NeXT was run by Steve Jobs, who was the CEO of Apple until his death in 2011.
+","Apple Inc. is a renowned American company, headquartered at Apple Park in Cupertino, California. It is known for a range of products that include the Apple Music streaming service, and once produced wireless networking products like AirPort and AirPort Extreme. The company has a complex history with the multimedia company Apple Corps Ltd., co-founded by The Beatles in 1968, which also established Apple Records. Steve Jobs, the late CEO of Apple, was also the driving force behind NeXTSTEP, an operating system developed by NeXT.",Apple

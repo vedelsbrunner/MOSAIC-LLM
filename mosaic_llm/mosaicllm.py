@@ -8,6 +8,8 @@ from tenacity import retry, stop_after_attempt, wait_fixed
 import ast
 import json
 import requests
+import urllib.parse
+
 
 load_dotenv()
 
@@ -37,14 +39,21 @@ class MosaicLLM:
         params = {
             'q': query,
             'index': self.mosaic_index,
-            'lang': self.mosaic_lang,
+            'language': self.mosaic_lang,
             'limit': self.mosaic_top_n
         }
-        url = f"https://qnode.eu/ows/mosaic/service/search"
+
+        base_url = "https://qnode.eu/ows/mosaic/service/search"
+        #url =    f"https://qnode.eu/ows/mosaic/service/search?q={query}?&index=demo-simplewiki&language=eng&limit=5"
         
+        # Encode the parameters
+        encoded_params = urllib.parse.urlencode(params)
+
+        # Construct the full URL
+        full_url = f"{base_url}?{encoded_params}"
         query_result = ""
         try:
-            response = requests.get(url, params=params)
+            response = requests.get(full_url, params=params)
             response.raise_for_status()
             query_result = response.json()
             # print(json.dumps(json_response, indent=4))
